@@ -14,7 +14,7 @@ type UserProvider interface {
 
 // NewUserProvider abstract factory to UserProvider based on a Type passed as parameter
 //
-// Returns an error if exists an eror with UserProviderImplementation or a invalid Type is passed as parameter
+// Returns an error if exists an error with UserProviderImplementation or a invalid Type is passed as parameter
 func NewUserProvider(t Type) (UserProvider, error) {
 	switch t {
 	case Memory:
