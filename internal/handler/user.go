@@ -3,8 +3,8 @@ package handler
 import (
 	"net/http"
 
+	"github.com/yael-castro/godi/internal/business"
 	"github.com/yael-castro/godi/internal/model"
-	"github.com/yael-castro/godi/internal/service"
 )
 
 // _ implemetation constraint to User struct
@@ -12,7 +12,7 @@ var _ http.Handler = User{}
 
 // User http handler used to handle all requests related to the user
 type User struct {
-	service.UserProvider
+	business.UserProvider
 }
 
 // ServeHTTP decides which http.HandlerFunc use based on the http method
