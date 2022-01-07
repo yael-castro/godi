@@ -1,5 +1,5 @@
-// Package service orchestrate business logic
-package service
+// Package business orchestrate business logic
+package business
 
 import (
 	"strings"
@@ -8,7 +8,7 @@ import (
 	"github.com/yael-castro/godi/internal/repository"
 )
 
-// UserProvider defines the service that provides information about users
+// UserProvider defines the business that provides information about users
 type UserProvider interface {
 	repository.UserProvider
 }

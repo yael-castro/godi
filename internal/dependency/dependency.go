@@ -4,9 +4,9 @@ package dependency
 import (
 	"fmt"
 
+	"github.com/yael-castro/godi/internal/business"
 	"github.com/yael-castro/godi/internal/handler"
 	"github.com/yael-castro/godi/internal/repository"
-	"github.com/yael-castro/godi/internal/service"
 )
 
 // Profile defines options of dependency injection
@@ -58,7 +58,7 @@ func handlerDefault(i interface{}) error {
 	}
 
 	h.User = handler.User{
-		UserProvider: service.AccountProvider{
+		UserProvider: business.AccountProvider{
 			UserProvider: repository.NewUProvider(repository.Memory),
 		},
 	}
@@ -74,7 +74,7 @@ func handlerTesting(i interface{}) error {
 	}
 
 	h.User = handler.User{
-		UserProvider: service.AccountProvider{
+		UserProvider: business.AccountProvider{
 			UserProvider: repository.NewUProvider(repository.Mock),
 		},
 	}

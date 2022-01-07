@@ -1,4 +1,4 @@
-// Package handles all http requests made to the app (is the presentation layer)
+// Package handler handles all http requests made to the app (is the presentation layer)
 package handler
 
 import (
