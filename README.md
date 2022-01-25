@@ -1,4 +1,8 @@
 # Go Dependency Injection (No libraries)
+[![Icon](./doc/images/banner.png)](https://github.com/yael-castro)
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/yael-castro/godi)](https://goreportcard.com/report/github.com/yael-castro/godi)
+
 Project template based on the most common layered architecture style, made to explain how to do dependency injection in golang without using any library
 
 **Important**
@@ -17,7 +21,7 @@ The architectura style is the most common layered architecture pattern.
 
 This have three layers:
 
-1. The presentation layet:      In this layer founds the web ui, cli or the rest api
+1. The presentation layer:      In this layer founds the web ui, cli or the rest api
 2. The business logic layer:    In this layer founds the business logic
 3. The data access layer:       It is the persistence layer
 
