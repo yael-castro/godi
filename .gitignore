@@ -4,6 +4,12 @@
 *.swn
 *.swo
 
+# Redis
+*.rdb
+
+# Environment
+*.env
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
