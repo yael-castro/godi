@@ -18,36 +18,22 @@ type UserProvider interface {
 func NewUserProvider(t Type) (UserProvider, error) {
 	switch t {
 	case Memory:
-		return &memoryProvider{
-			data: userData,
-		}, nil
+		return memoryProvider(userData), nil
 	case Mock:
 		return &mockProvider{}, nil
 	}
 
-	return nil, fmt.Errorf(`type "%d" is not supported by repository.NewUserProvider`, t)
-}
-
-// NewUProvider build a UserProvider using the constructor NewUserProvider but it no returns an error instead panics
-func NewUProvider(t Type) UserProvider {
-	provider, err := NewUserProvider(t)
-	if err != nil {
-		panic(err)
-	}
-
-	return provider
+	return nil, fmt.Errorf(`type "%d" is not supported`, t)
 }
 
 // memoryProvider implementation of UserProvider that use a memory storage
-type memoryProvider struct {
-	data map[string]model.User
-}
+type memoryProvider map[string]model.User
 
 // ProvideUser search a user id in a hash map (data saved in memory)
 //
 // If the user id no exists in the hash map as key returns a error of type model.NotFound
 func (m memoryProvider) ProvideUser(id string) (user model.User, err error) {
-	user, ok := m.data[id]
+	user, ok := m[id]
 	if !ok {
 		err = model.NotFound(fmt.Sprintf(`not found user with id "%s"`, id))
 	}
@@ -62,6 +48,6 @@ type mockProvider struct{}
 func (m mockProvider) ProvideUser(id string) (user model.User, err error) {
 	return model.User{
 		Id:   id,
-		Name: "name",
+		Name: "unknow",
 	}, nil
 }

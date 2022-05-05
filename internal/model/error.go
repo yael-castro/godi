@@ -1,17 +1,17 @@
 package model
 
-// ValidationError returns when occurs a validation error
+// ValidationError is returned when occurs a validation error
 type ValidationError string
 
+// Error returns the string value of NotFound
 func (e ValidationError) Error() string {
 	return string(e)
 }
 
-// NotFound error implementation
-//
-// Returns when occurs an error related to missing resource
+// NotFound is returned when occurs an error related to missing resource
 type NotFound string
 
-func (e NotFound) Error() string {
-	return string(e)
+// Error returns the string value of NotFound
+func (n NotFound) Error() string {
+	return string(n)
 }

@@ -41,41 +41,51 @@ func (f InjectorFunc) Inject(i interface{}) error {
 func NewInjector(p Profile) Injector {
 	switch p {
 	case Default:
-		return InjectorFunc(handlerDefault)
+		return InjectorFunc(routerDefault)
 
 	case Testing:
-		return InjectorFunc(handlerTesting)
+		return InjectorFunc(routerTesting)
 	}
 
-	panic(fmt.Sprintf(`invalid profile: "%d" is not supported by Ne`))
+	panic(fmt.Sprintf(`invalid profile: "%d" is not supported`, p))
 }
 
-// handlerDefault InjectorFunc for *handler.Handler that uses a Default Profile
-func handlerDefault(i interface{}) error {
+// routerDefault InjectorFunc for *handler.Handler that uses a Default Profile
+func routerDefault(i interface{}) error {
 	h, ok := i.(*handler.Handler)
 	if !ok {
-		return fmt.Errorf(`required a "%T" not a "%T"`, h, i)
+		return fmt.Errorf(`required "%T" not "%T"`, h, i)
+	}
+
+	userProvider, err := repository.NewUserProvider(repository.Memory)
+	if err != nil {
+		return err
 	}
 
 	h.User = handler.User{
 		UserProvider: business.AccountProvider{
-			UserProvider: repository.NewUProvider(repository.Memory),
+			UserProvider: userProvider,
 		},
 	}
 
 	return nil
 }
 
-// handlerTesting InjectorFunc for *handler.Handler that uses a Testing Profile
-func handlerTesting(i interface{}) error {
+// routerTesting InjectorFunc for *handler.Handler that uses a Testing Profile
+func routerTesting(i interface{}) error {
 	h, ok := i.(*handler.Handler)
 	if !ok {
-		return fmt.Errorf(`required a "%T" not a "%T"`, h, i)
+		return fmt.Errorf(`required "%T" not "%T"`, h, i)
+	}
+
+	userProvider, err := repository.NewUserProvider(repository.Mock)
+	if err != nil {
+		return err
 	}
 
 	h.User = handler.User{
 		UserProvider: business.AccountProvider{
-			UserProvider: repository.NewUProvider(repository.Mock),
+			UserProvider: userProvider,
 		},
 	}
 
